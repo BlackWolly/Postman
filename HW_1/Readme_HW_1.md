@@ -14,8 +14,8 @@ request url params:
 ##### **RESPONSE №1**
 ```sh
 [
-    "sergio",
-    "28"
+    "Pavlo",
+    "36"
 ]
 ```
 
