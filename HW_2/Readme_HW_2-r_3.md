@@ -9,7 +9,7 @@
 ***// 2. Статус код 200***
 
 ```sh
-    pm.test("Verify status 200", function () {
+pm.test("Verify status 200", function () {
     pm.response.to.have.status(200);
 });
 ```
