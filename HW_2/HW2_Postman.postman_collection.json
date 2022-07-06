@@ -22,7 +22,7 @@
 							"\r",
 							"// 3. Проверить, что в body приходит правильный string.\r",
 							"pm.test(\"Body matches string\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"This is the first responce from server\");\r",
+							"    pm.expect(pm.response.text()).to.eql(\"This is the first responce from server!\");\r",
 							"});\r",
 							""
 						],
@@ -101,8 +101,8 @@
 							"});\r",
 							"\r",
 							"// 10. Проверить, что salary в ответе равно salary s request (salary забрать из request.)\r",
-							"pm.test(\"Your test name\", function () {    \r",
-							"    pm.expect(request.data.salary).to.eql(salary_s);\r",
+							"pm.test(\"Check salary request\", function () {    \r",
+							"    pm.expect(+request.data.salary).to.eql(salary_s);\r",
 							"});\r",
 							"\r",
 							"// 11. Вывести в консоль параметр family из response.\r",
@@ -314,10 +314,12 @@
 							"pm.environment.set(\"age\", 40);\r",
 							"pm.environment.set(\"salary\", 1000)\r",
 							"// 21. Написать цикл который выведет в консоль по порядку элементы списка из параметра salary.\r",
-							"let elements = jsonData.salary\r",
-							"for (let i = 0; i <= 2; i++) {\r",
-							"console.log(elements[i]);\r",
-							"}"
+							"pm.test('Cicle', function () {\r",
+							"    let salaryList = jsonData.salary;\r",
+							"        for (let i = 0; i < salaryList.lenght; i++)\r",
+							"        break;\r",
+							"console.log(jsonData.salary);\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -365,8 +367,11 @@
 					"script": {
 						"exec": [
 							"// 1. Вставить параметр salary из окружения в request\r",
+							"pm.environment.get(\"salary\");\r",
 							"// 2. Вставить параметр age из окружения в age\r",
+							"pm.environment.get(\"age\");\r",
 							"// 3. Вставить параметр name из окружения в name\r",
+							"pm.environment.get(\"name\");\r",
 							"// 4. Отправить запрос.\r",
 							"// 5. Статус код 200\r",
 							"pm.test(\"Status code is 200\", function () {\r",
@@ -482,6 +487,28 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
 		}
 	]
 }
